@@ -1,17 +1,36 @@
-#include <iostream>
+#include <stdio.h>
+#include <conio.h>  
 
-using namespace std;
+#define WIDTH 20   
+#define HEIGHT 20  
+
+// Hàm tạo khung
+void createFrame() {
+    int x, y;
+    for (y = 0; y <= HEIGHT; y++) {
+        for (x = 0; x <= WIDTH; x++) {
+            if (x == 0 || x == WIDTH) {
+                printf("#");
+            }
+            else if (y == 0 || y == HEIGHT) {
+                printf("#");
+            }
+            else {
+                printf(" ");
+            }
+        }
+        printf("\n");
+    }
+}
 
 void menuGame();
 
 int main() {
-    float a,b,delta,x1,x2;
+  
+    createFrame();
 
-    cout << "Nhap vao a: ";
-    cin >> a;
-    cout << "Nhap vao b: ";
-    cin >> b;
-
+   
+    getch();
 
     return 0;
 }
