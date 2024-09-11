@@ -24,7 +24,14 @@ void menuGame();
 void Score(int& thoat, char name[], int& lever, int score);
 void playgame(int& thoat, char name[], int& lever);
 
-
+void CheckFruit() {
+    if (x == fruitX && y == fruitY) {
+        score += 10; // Tăng điểm khi ăn thức ăn
+        fruitX = rand() % width; // Tạo vị trí mới cho thức ăn
+        fruitY = rand() % height; // Tạo vị trí mới cho thức ăn
+        nTail++; // Tăng chiều dài của con rắn
+    }
+}
 
 int main() {
   // Example player data
