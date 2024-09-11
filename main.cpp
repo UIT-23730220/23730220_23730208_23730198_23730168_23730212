@@ -39,24 +39,7 @@ int main() {
     }
 }
 
-void menuGame(){
-    cout << "Chon chuc nang duoc hien thi ben duoi:\n";
-    cout << "1. Play!\n";
-    cout << "2. Exit.\n";
-    int choice;
-    cin >> choice;
-    switch (choice){
-        case 1: 
-            break;
-        case 2:
-            break;
-        default:
-            cout << "invalid choice.\n" << endl;
-            break;
-    }
-}
-
-void Input() {
+void Input() { // TRẦN NHƯ PHONG
     if (_kbhit()) {
         switch (_getch()) {
         case 'a':
@@ -78,7 +61,7 @@ void Input() {
     }
 }
 
-void Logic() {
+void Logic() { // NGUYỄN ĐĂNG SANG
     int prevX = tailX[0];
     int prevY = tailY[0];
     int prev2X, prev2Y;
@@ -116,7 +99,7 @@ void Logic() {
     if (y >= height) y = 0; else if (y < 0) y = height - 1;
 }
 
-void createFrame() {
+void createFrame() { // PHAN NHẬT HÒA
     int x, y;
     for (y = 0; y <= HEIGHT; y++) {
         for (x = 0; x <= WIDTH; x++) {
@@ -132,4 +115,29 @@ void createFrame() {
         }
         printf("\n");
     }
+}
+
+void menuGame(){ // NGUYỄN HOÀNG THANH TÚ
+    cout << "Chon chuc nang duoc hien thi ben duoi:\n";
+    cout << "1. Play!\n";
+    cout << "2. Exit.\n";
+    int choice;
+    cin >> choice;
+    switch (choice){
+        case 1: 
+            break;
+        case 2:
+            break;
+        default:
+            cout << "invalid choice.\n" << endl;
+            break;
+    }
+}
+
+void Score(int& thoat, char name[], int& lever, int score){ // PHẠM PHƯƠNG HỒNG NGỮ
+  
+}
+
+void playgame(int& thoat, char name[], int& lever){ // NGUYỄN HOÀNG THANH TÚ
+  
 }
