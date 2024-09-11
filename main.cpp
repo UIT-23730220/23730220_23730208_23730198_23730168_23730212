@@ -165,7 +165,7 @@ void menuGame() { // NGUYỄN HOÀNG THANH TÚ
         gameOver = true; // Thoát trò chơi
         break;
     default:
-        cout << "Lua chun khung hup le.\n";
+        cout << "Lua chon khong hop le.\n";
         break;
     }
 }
