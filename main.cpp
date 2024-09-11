@@ -25,18 +25,15 @@ void Score(int& thoat, char name[], int& lever, int score);
 void playgame(int& thoat, char name[], int& lever);
 
 int main() {
-  
-    createFrame();
+  // Example player data
+  int thoat = 0;  // Exit flag
+  char name[20] = "Player1";  // Player name
+  int lever = 1;  // Initial level
 
-   
-    getch();
+  // Start the game
+  playgame(thoat, name, lever);
 
-
-    // Kiểm tra va chạm với đuôi
-    for (int i = 0; i < nTail; i++) {
-        if (tailX[i] == x && tailY[i] == y)
-            gameOver = true;
-    }
+  return 0;
 }
 
 void Input() { // TRẦN NHƯ PHONG
@@ -118,19 +115,21 @@ void createFrame() { // PHAN NHẬT HÒA
 }
 
 void menuGame(){ // NGUYỄN HOÀNG THANH TÚ
-    cout << "Chon chuc nang duoc hien thi ben duoi:\n";
+    cout << "Choose an option:\n";
     cout << "1. Play!\n";
     cout << "2. Exit.\n";
     int choice;
     cin >> choice;
-    switch (choice){
-        case 1: 
-            break;
-        case 2:
-            break;
-        default:
-            cout << "invalid choice.\n" << endl;
-            break;
+    switch (choice) {
+    case 1:
+        // Start game
+        break;
+    case 2:
+        gameOver = true; // Exit
+        break;
+    default:
+        cout << "Invalid choice.\n";
+        break;
     }
 }
 
@@ -139,5 +138,24 @@ void Score(int& thoat, char name[], int& lever, int score){ // PHẠM PHƯƠNG H
 }
 
 void playgame(int& thoat, char name[], int& lever){ // NGUYỄN HOÀNG THANH TÚ
-  
+  // Initialize game variables
+  gameOver = false;
+  dir = STOP;
+  x = WIDTH / 2;      // Initial snake head position
+  y = HEIGHT / 2;
+  fruitX = rand() % WIDTH;   // Random fruit position
+  fruitY = rand() % HEIGHT;
+  score = 0;
+  nTail = 0;          // Initial snake tail length
+
+  // Game loop
+  while (!gameOver) {
+    createFrame();  // Draw the game frame
+    Input();        // Handle user input
+    Logic();        // Update game logic
+    Sleep(100);     // Control game speed (delay in milliseconds)
+  }
+
+  // Display final score after the game ends
+  Score(thoat, name, lever, score);
 }
