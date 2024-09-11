@@ -134,7 +134,7 @@ void menuGame(){ // NGUYỄN HOÀNG THANH TÚ
     }
 }
 
-void Score(int& thoat, char name[], int& lever, int score) {
+void Score(int& thoat, char name[], int& lever, int score) { // Phạm Phương Hồng Ngữ
     system("cls"); // Xóa màn hình
     
     // Hiển thị thông tin điểm số
