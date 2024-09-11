@@ -18,20 +18,12 @@ int tailX[100], tailY[100];
 int nTail;
 
 void Input();
+void CheckFruit();
 void Logic();
 void createFrame();
 void menuGame();
 void Score(int& thoat, char name[], int& lever, int score);
 void playgame(int& thoat, char name[], int& lever);
-
-void CheckFruit() {
-    if (x == fruitX && y == fruitY) {
-        score += 10; // Tăng điểm khi ăn thức ăn
-        fruitX = rand() % width; // Tạo vị trí mới cho thức ăn
-        fruitY = rand() % height; // Tạo vị trí mới cho thức ăn
-        nTail++; // Tăng chiều dài của con rắn
-    }
-}
 
 int main() {
   // Example player data
@@ -64,6 +56,15 @@ void Input() { // TRẦN NHƯ PHONG
             gameOver = true; // Dừng trò chơi
             break;
         }
+    }
+}
+
+void CheckFruit() {
+    if (x == fruitX && y == fruitY) {
+        score += 10; // Tăng điểm khi ăn thức ăn
+        fruitX = rand() % width; // Tạo vị trí mới cho thức ăn
+        fruitY = rand() % height; // Tạo vị trí mới cho thức ăn
+        nTail++; // Tăng chiều dài của con rắn
     }
 }
 
@@ -112,13 +113,7 @@ void Logic() {//NGUYỄN ĐĂNG SANG
             gameOver = true;
     }
 
-    // Check if snake eats the fruit
-    if (x == fruitX && y == fruitY) {
-        score += 10;
-        fruitX = rand() % WIDTH;
-        fruitY = rand() % HEIGHT;
-        nTail++;
-    }
+    CheckFruit();
 }
 
 void createFrame() { // PHAN NHẬT HÒA
