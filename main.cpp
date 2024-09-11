@@ -2,7 +2,7 @@
 #include <conio.h>  
 
 #define WIDTH 20   
-#define HEIGHT 10  
+#define HEIGHT 20  
 
 // Hàm tạo khung
 void createFrame() {
