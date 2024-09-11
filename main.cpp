@@ -141,3 +141,25 @@ void Score(int& thoat, char name[], int& lever, int score){ // PHẠM PHƯƠNG H
 void playgame(int& thoat, char name[], int& lever){ // NGUYỄN HOÀNG THANH TÚ
   
 }
+
+void Input() {
+    if (_kbhit()) { // Check if a key is pressed
+        switch (_getch()) {
+        case 'a':
+            dir = LEFT; // Move left
+            break;
+        case 'd':
+            dir = RIGHT; // Move right
+            break;
+        case 'w':
+            dir = UP; // Move up
+            break;
+        case 's':
+            dir = DOWN; // Move down
+            break;
+        case 'x':
+            gameOver = true; // End game
+            break;
+        }
+    }
+}
