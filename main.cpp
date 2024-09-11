@@ -3,21 +3,24 @@
 #include <windows.h>
 #include <stdio.h> 
 
-// Define game dimensions
+using namespace std;
+
+// Định nghĩa kích thước trò chơi
 #define WIDTH 20
 #define HEIGHT 20
 
-// Direction enumerator for movement
+// Khai báo các hướng di chuyển
 enum Direction { STOP = 0, LEFT, RIGHT, UP, DOWN };
 Direction dir;
 
-// Game state variables
+// Các biến trạng thái của trò chơi
 bool gameOver;
 int x, y, fruitX, fruitY, score;
 int tailX[100], tailY[100];
 int nTail;
 
 void Input();
+void CheckFruit();
 void Logic();
 void createFrame();
 void menuGame();
@@ -25,19 +28,19 @@ void Score(int& thoat, char name[], int& lever, int score);
 void playgame(int& thoat, char name[], int& lever);
 
 int main() {
-  // Example player data
-  int thoat = 0;  // Exit flag
-  char name[20] = "Player1";  // Player name
-  int lever = 1;  // Initial level
+    // Ví dụ về dữ liệu người chơi
+    int thoat = 0;  // Cờ thoát
+    char name[20] = "Player1";  // Tên người chơi
+    int lever = 1;  // Mức độ ban đầu
 
-  // Start the game
-  playgame(thoat, name, lever);
+    // Bắt đầu trò chơi
+    playgame(thoat, name, lever);
 
-  return 0;
+    return 0;
 }
 
 void Input() { // TRẦN NHƯ PHONG
-    if (_kbhit()) {
+    if (_kbhit()) { // Kiểm tra xem có phím nào được nhấn không
         switch (_getch()) {
         case 'a':
             dir = LEFT; // Di chuyển sang trái
@@ -58,14 +61,23 @@ void Input() { // TRẦN NHƯ PHONG
     }
 }
 
+void CheckFruit() {
+    if (x == fruitX && y == fruitY) {
+        score += 10; // Tăng điểm khi ăn thức ăn
+        fruitX = rand() % WIDTH; // Tạo vị trí mới cho thức ăn
+        fruitY = rand() % HEIGHT; // Tạo vị trí mới cho thức ăn
+        nTail++; // Tăng chiều dài của con rắn
+    }
+}
+
 void Logic() { // NGUYỄN ĐĂNG SANG
     int prevX = tailX[0];
     int prevY = tailY[0];
     int prev2X, prev2Y;
-    tailX[0] = x; // Lưu vị trí đầu rắn
+    tailX[0] = x; // Lưu vị trí đầu con rắn
     tailY[0] = y;
 
-    // Cập nhật vị trí đuôi rắn
+    // Cập nhật vị trí đuôi con rắn
     for (int i = 1; i < nTail; i++) {
         prev2X = tailX[i];
         prev2Y = tailY[i];
@@ -75,7 +87,7 @@ void Logic() { // NGUYỄN ĐĂNG SANG
         prevY = prev2Y;
     }
 
-    // Cập nhật vị trí đầu rắn dựa trên hướng
+    // Cập nhật vị trí đầu con rắn dựa trên hướng di chuyển
     switch (dir) {
     case LEFT:
         x--;
@@ -92,33 +104,58 @@ void Logic() { // NGUYỄN ĐĂNG SANG
     default:
         break;
     }
-    if (x >= width) x = 0; else if (x < 0) x = width - 1;
-    if (y >= height) y = 0; else if (y < 0) y = height - 1;
-}
 
-void createFrame() { // PHAN NHẬT HÒA
-    int x, y;
-    for (y = 0; y <= HEIGHT; y++) {
-        for (x = 0; x <= WIDTH; x++) {
-            if (x == 0 || x == WIDTH) {
-                printf("#");
-            }
-            else if (y == 0 || y == HEIGHT) {
-                printf("#");
-            }
-            else {
-                printf(" ");
-            }
-        }
-        printf("\n");
+    // Xử lý khi chạm biên màn hình
+    if (x >= WIDTH) x = 0; else if (x < 0) x = WIDTH - 1;
+    if (y >= HEIGHT) y = 0; else if (y < 0) y = HEIGHT - 1;
+
+    // Kiểm tra va chạm với đuôi
+    for (int i = 0; i < nTail; i++) {
+        if (tailX[i] == x && tailY[i] == y)
+            gameOver = true;
     }
+
+    CheckFruit(); // Kiểm tra xem có ăn thức ăn không
 }
 
-void menuGame() { 
-    cout << "Chọn một tùy chọn:\n";
-    cout << "1. Chơi!\n";
-    cout << "2. Thoát.\n";
-    
+void createFrame() {
+    system("cls"); // Xóa màn hình console
+    for (int i = 0; i < WIDTH + 2; i++) cout << "#"; // Viền trên
+    cout << endl;
+
+    for (int i = 0; i < HEIGHT; i++) {
+        for (int j = 0; j < WIDTH; j++) {
+            if (j == 0) cout << "#"; // Viền bên trái
+
+            if (i == y && j == x) cout << "O"; // Đầu con rắn
+            else if (i == fruitY && j == fruitX) cout << "F"; // Thức ăn
+            else {
+                bool print = false;
+                for (int k = 0; k < nTail; k++) {
+                    if (tailX[k] == j && tailY[k] == i) {
+                        cout << "o"; // Đuôi con rắn
+                        print = true;
+                    }
+                }
+                if (!print) cout << " ";
+            }
+
+            if (j == WIDTH - 1) cout << "#"; // Viền bên phải
+        }
+        cout << endl;
+    }
+
+    for (int i = 0; i < WIDTH + 2; i++) cout << "#"; // Viền dưới
+    cout << endl;
+
+    cout << "Diem: " << score << endl;
+}
+
+
+void menuGame() { // NGUYỄN HOÀNG THANH TÚ
+    cout << "Chon mot tuy chon:\n";
+    cout << "1. Choi!\n";
+    cout << "2. Thoat.\n";
     int choice;
     cin >> choice;
 
@@ -132,11 +169,6 @@ void menuGame() {
         default:
             cout << "Lựa chọn không hợp lệ.\n";
     }
-}
-
-
-void Score(int& thoat, char name[], int& lever, int score){ // PHẠM PHƯƠNG HỒNG NGỮ
-  
 }
 
 void playgame(int& thoat, char name[], int& lever) { 
@@ -158,6 +190,33 @@ void playgame(int& thoat, char name[], int& lever) {
         Input();      // Xử lý nhập liệu
         Logic();      // Cập nhật logic trò chơi
         Sleep(100);   // Điều chỉnh tốc độ trò chơi
+
+void Score(int& thoat, char name[], int& lever, int score) {
+    // PHẠM PHƯƠNG HỒNG NGỮ Hiển thị thông tin điểm số
+    system("cls"); // Xóa màn hình
+    cout << "==================== BANG DIEM ====================" << endl;
+    cout << "Ten nguoi choi: " << name << endl;
+    cout << "Cap do: " << lever << endl;
+    cout << "Diem cuoi cung: " << score << endl;
+    cout << "===================================================" << endl;
+
+    // Hiển thị tùy chọn thoát
+    cout << "\nNhan 'e' de Thoat hoac 'r' de Choi lai: ";
+
+    char a;
+    a = _getch(); // Lấy ký tự nhập từ bàn phím
+
+    if (a == 'e' || a == 'E') {
+        thoat = 1; // Đặt cờ thoát
+        gameOver = true; // Kết thúc trò chơi
+    }
+    else if (a == 'r' || a == 'R') {
+        thoat = 0; // Đặt lại cờ thoát
+        playgame(thoat, name, lever); // Chơi lại trò chơi
+    }
+
+    system("cls"); // Xóa màn hình
+}
     }
 
     // Hiển thị điểm cuối cùng sau khi trò chơi kết thúc
