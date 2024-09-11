@@ -158,9 +158,33 @@ void menuGame(){ // NGUYỄN HOÀNG THANH TÚ
     }
 }
 
-void Score(int& thoat, char name[], int& lever, int score){ // PHẠM PHƯƠNG HỒNG NGỮ
-  
+void Score(int& thoat, char name[], int& lever, int score) {
+    // PHẠM PHƯƠNG HỒNG NGỮ Display the score information
+    system("cls"); // Clear the screen
+    cout << "==================== SCORE BOARD ====================" << endl;
+    cout << "Player Name: " << name << endl;
+    cout << "Level: " << lever << endl;
+    cout << "Final Score: " << score << endl;
+    cout << "======================================================" << endl;
+
+    // Display exit option
+    cout << "\nPress 'e' to Exit or 'r' to Restart: ";
+
+    char a;
+    a = _getch(); // Get a single character input
+
+    if (a == 'e' || a == 'E') {
+        thoat = 1; // Set exit flag
+        gameOver = true; // End game
+    }
+    else if (a == 'r' || a == 'R') {
+        thoat = 0; // Reset exit flag
+        playgame(thoat, name, lever); // Restart game
+    }
+
+    system("cls"); // Clear the screen
 }
+
 
 void playgame(int& thoat, char name[], int& lever){ // NGUYỄN HOÀNG THANH TÚ
   // Initialize game variables
