@@ -1,6 +1,9 @@
 #include <iostream>
+#include <conio.h>
+#include <windows.h>
 
 using namespace std;
+
 void Input() {
     if (_kbhit()) {
         switch (_getch()) {
@@ -68,13 +71,6 @@ void Logic() {
     }
 }
 int main() {
-    float a,b,delta,x1,x2;
-
-    cout << "Nhap vao a: ";
-    cin >> a;
-    cout << "Nhap vao b: ";
-    cin >> b;
-
-
+   
     return 0;
 }
