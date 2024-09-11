@@ -1,15 +1,45 @@
-
 #include <iostream>
 #include <conio.h>
 #include <windows.h>
 #include <stdio.h> 
 
+// Define game dimensions
+#define WIDTH 20
+#define HEIGHT 20
 
-#define WIDTH 20   
-#define HEIGHT 20  
+// Direction enumerator for movement
+enum Direction { STOP = 0, LEFT, RIGHT, UP, DOWN };
+Direction dir;
+
+// Game state variables
+bool gameOver;
+int x, y, fruitX, fruitY, score;
+int tailX[100], tailY[100];
+int nTail;
+
+void Input();
+void Logic();
+void createFrame();
+void menuGame();
+void Score(int& thoat, char name[], int& lever, int score);
+void playgame(int& thoat, char name[], int& lever);
+
+int main() {
+  
+    createFrame();
+
+   
+    getch();
 
 
-void Input() {
+    // Kiểm tra va chạm với đuôi
+    for (int i = 0; i < nTail; i++) {
+        if (tailX[i] == x && tailY[i] == y)
+            gameOver = true;
+    }
+}
+
+void Input() { // TRẦN NHƯ PHONG
     if (_kbhit()) {
         switch (_getch()) {
         case 'a':
@@ -30,7 +60,8 @@ void Input() {
         }
     }
 }
-void Logic() {
+
+void Logic() { // NGUYỄN ĐĂNG SANG
     int prevX = tailX[0];
     int prevY = tailY[0];
     int prev2X, prev2Y;
@@ -64,13 +95,11 @@ void Logic() {
     default:
         break;
     }
-
-    // Giới hạn vị trí rắn
     if (x >= width) x = 0; else if (x < 0) x = width - 1;
     if (y >= height) y = 0; else if (y < 0) y = height - 1;
+}
 
-// Hàm tạo khung
-void createFrame() {
+void createFrame() { // PHAN NHẬT HÒA
     int x, y;
     for (y = 0; y <= HEIGHT; y++) {
         for (x = 0; x <= WIDTH; x++) {
@@ -88,25 +117,7 @@ void createFrame() {
     }
 }
 
-void menuGame();
-void Score();
-
-int main() {
-  
-    createFrame();
-
-   
-    getch();
-
-
-    // Kiểm tra va chạm với đuôi
-    for (int i = 0; i < nTail; i++) {
-        if (tailX[i] == x && tailY[i] == y)
-            gameOver = true;
-    }
-}
-
-void menuGame(){
+void menuGame(){ // NGUYỄN HOÀNG THANH TÚ
     cout << "Chon chuc nang duoc hien thi ben duoi:\n";
     cout << "1. Play!\n";
     cout << "2. Exit.\n";
@@ -122,31 +133,11 @@ void menuGame(){
             break;
     }
 }
-void Score(int &thoat, char name[], int &lever, Snake &luusnake, char dname[])
-{
-  khungplay();
-  gotoxy(34, 0); TextColor(160); printf(" HIGHT SCORE ");
-  TextColor(0);
-        for(int i = 0; i<45; i++)
-    {
-        gotoxy(18+i, 11); printf(" ");
-    }
-        for(int i = 0; i<45; i++)
-    {
-        gotoxy(18+i, 21); printf(" ");
-    }
- gotoxy(33, 6); TextColor(12); printf("DIEM CAO NHAT");  
- gotoxy(25, 8); TextColor(11); printf("Ten Nguoi Choi:");       gotoxy(41, 8); TextColor(15); printf("%s", dname);
- gotoxy(25, 9); TextColor(11); printf("Diem Cao:");             gotoxy(41, 9); TextColor(10); printf("%d", luusnake.n);
-    gotoxy(36,36); TextColor(47); printf("  EXIT  ");
-    gotoxy(39,36);
-    TextColor(0);
- char a;
-    do
-    {
-        a = getch();
-    }while(a!=13 && a != 'e' && a != 'E' && a !='5' && a != 8);
-    system("cls");
-    fflush(stdin);
-    playgame(thoat, name, lever, luusnake, dname);  
+
+void Score(int& thoat, char name[], int& lever, int score){ // PHẠM PHƯƠNG HỒNG NGỮ
+  
+}
+
+void playgame(int& thoat, char name[], int& lever){ // NGUYỄN HOÀNG THANH TÚ
+  
 }
