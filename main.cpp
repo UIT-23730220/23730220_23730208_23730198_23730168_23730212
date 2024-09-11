@@ -1,8 +1,13 @@
+
 #include <iostream>
 #include <conio.h>
 #include <windows.h>
+#include <stdio.h> 
 
-using namespace std;
+
+#define WIDTH 20   
+#define HEIGHT 20  
+
 
 void Input() {
     if (_kbhit()) {
@@ -64,13 +69,55 @@ void Logic() {
     if (x >= width) x = 0; else if (x < 0) x = width - 1;
     if (y >= height) y = 0; else if (y < 0) y = height - 1;
 
+// Hàm tạo khung
+void createFrame() {
+    int x, y;
+    for (y = 0; y <= HEIGHT; y++) {
+        for (x = 0; x <= WIDTH; x++) {
+            if (x == 0 || x == WIDTH) {
+                printf("#");
+            }
+            else if (y == 0 || y == HEIGHT) {
+                printf("#");
+            }
+            else {
+                printf(" ");
+            }
+        }
+        printf("\n");
+    }
+}
+
+void menuGame();
+
+int main() {
+  
+    createFrame();
+
+   
+    getch();
+
+
     // Kiểm tra va chạm với đuôi
     for (int i = 0; i < nTail; i++) {
         if (tailX[i] == x && tailY[i] == y)
             gameOver = true;
     }
 }
-int main() {
-   
-    return 0;
-}
+
+void menuGame(){
+    cout << "Chon chuc nang duoc hien thi ben duoi:\n";
+    cout << "1. Play!\n";
+    cout << "2. Exit.\n";
+    int choice;
+    cin >> choice;
+    switch (choice){
+        case 1: 
+            break;
+        case 2:
+            break;
+        default:
+            cout << "invalid choice.\n" << endl;
+            break;
+    }
+};
