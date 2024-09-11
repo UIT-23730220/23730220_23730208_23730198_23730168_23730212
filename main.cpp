@@ -118,22 +118,37 @@ void Logic() {//NGUYỄN ĐĂNG SANG
     CheckFruit();
 }
 
-void createFrame() { // PHAN NHẬT HÒA
-    int x, y;
-    for (y = 0; y <= HEIGHT; y++) {
-        for (x = 0; x <= WIDTH; x++) {
-            if (x == 0 || x == WIDTH) {
-                printf("#");
-            }
-            else if (y == 0 || y == HEIGHT) {
-                printf("#");
-            }
+void createFrame() {
+    system("cls"); // Clear the console
+    for (int i = 0; i < WIDTH + 2; i++) cout << "#"; // Top border
+    cout << endl;
+
+    for (int i = 0; i < HEIGHT; i++) {
+        for (int j = 0; j < WIDTH; j++) {
+            if (j == 0) cout << "#"; // Left border
+
+            if (i == y && j == x) cout << "O"; // Snake head
+            else if (i == fruitY && j == fruitX) cout << "F"; // Fruit
             else {
-                printf(" ");
+                bool print = false;
+                for (int k = 0; k < nTail; k++) {
+                    if (tailX[k] == j && tailY[k] == i) {
+                        cout << "o"; // Snake tail
+                        print = true;
+                    }
+                }
+                if (!print) cout << " ";
             }
+
+            if (j == WIDTH - 1) cout << "#"; // Right border
         }
-        printf("\n");
+        cout << endl;
     }
+
+    for (int i = 0; i < WIDTH + 2; i++) cout << "#"; // Bottom border
+    cout << endl;
+
+    cout << "Score: " << score << endl;
 }
 
 void menuGame(){ // NGUYỄN HOÀNG THANH TÚ
