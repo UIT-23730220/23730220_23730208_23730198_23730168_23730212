@@ -114,48 +114,52 @@ void createFrame() { // PHAN NHẬT HÒA
     }
 }
 
-void menuGame(){ // NGUYỄN HOÀNG THANH TÚ
-    cout << "Choose an option:\n";
-    cout << "1. Play!\n";
-    cout << "2. Exit.\n";
+void menuGame() { 
+    cout << "Chọn một tùy chọn:\n";
+    cout << "1. Chơi!\n";
+    cout << "2. Thoát.\n";
+    
     int choice;
     cin >> choice;
+
     switch (choice) {
-    case 1:
-        // Start game
-        break;
-    case 2:
-        gameOver = true; // Exit
-        break;
-    default:
-        cout << "Invalid choice.\n";
-        break;
+        case 1:
+            // Bắt đầu trò chơi
+            break;
+        case 2:
+            gameOver = true; // Thoát trò chơi
+            break;
+        default:
+            cout << "Lựa chọn không hợp lệ.\n";
     }
 }
+
 
 void Score(int& thoat, char name[], int& lever, int score){ // PHẠM PHƯƠNG HỒNG NGỮ
   
 }
 
-void playgame(int& thoat, char name[], int& lever){ // NGUYỄN HOÀNG THANH TÚ
-  // Initialize game variables
-  gameOver = false;
-  dir = STOP;
-  x = WIDTH / 2;      // Initial snake head position
-  y = HEIGHT / 2;
-  fruitX = rand() % WIDTH;   // Random fruit position
-  fruitY = rand() % HEIGHT;
-  score = 0;
-  nTail = 0;          // Initial snake tail length
+void playgame(int& thoat, char name[], int& lever) { 
+    menuGame(); // Hiển thị menu trò chơi
 
-  // Game loop
-  while (!gameOver) {
-    createFrame();  // Draw the game frame
-    Input();        // Handle user input
-    Logic();        // Update game logic
-    Sleep(100);     // Control game speed (delay in milliseconds)
-  }
+    // Khởi tạo biến trò chơi
+    gameOver = false;
+    dir = STOP;
+    x = WIDTH / 2;  // Vị trí đầu rắn ban đầu
+    y = HEIGHT / 2;
+    fruitX = rand() % WIDTH; // Vị trí ngẫu nhiên của thức ăn
+    fruitY = rand() % HEIGHT;
+    score = 0;
+    nTail = 0;  // Chiều dài ban đầu của đuôi rắn
 
-  // Display final score after the game ends
-  Score(thoat, name, lever, score);
+    // Vòng lặp trò chơi
+    while (!gameOver) {
+        createFrame(); // Vẽ khung trò chơi
+        Input();      // Xử lý nhập liệu
+        Logic();      // Cập nhật logic trò chơi
+        Sleep(100);   // Điều chỉnh tốc độ trò chơi
+    }
+
+    // Hiển thị điểm cuối cùng sau khi trò chơi kết thúc
+    Score(thoat, name, lever, score);
 }
