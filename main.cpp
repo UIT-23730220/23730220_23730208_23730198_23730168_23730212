@@ -151,24 +151,45 @@ void createFrame() {
     cout << "Diem: " << score << endl;
 }
 
+
 void menuGame() { // NGUYỄN HOÀNG THANH TÚ
     cout << "Chon mot tuy chon:\n";
     cout << "1. Choi!\n";
     cout << "2. Thoat.\n";
     int choice;
     cin >> choice;
+
     switch (choice) {
-    case 1:
-        // Bắt đầu trò chơi
-        break;
-    case 2:
-        gameOver = true; // Thoát trò chơi
-        break;
-    default:
-        cout << "Lua chon khong hop le.\n";
-        break;
+        case 1:
+            // Bắt đầu trò chơi
+            break;
+        case 2:
+            gameOver = true; // Thoát trò chơi
+            break;
+        default:
+            cout << "Lựa chọn không hợp lệ.\n";
     }
 }
+
+void playgame(int& thoat, char name[], int& lever) { 
+    menuGame(); // Hiển thị menu trò chơi
+
+    // Khởi tạo biến trò chơi
+    gameOver = false;
+    dir = STOP;
+    x = WIDTH / 2;  // Vị trí đầu rắn ban đầu
+    y = HEIGHT / 2;
+    fruitX = rand() % WIDTH; // Vị trí ngẫu nhiên của thức ăn
+    fruitY = rand() % HEIGHT;
+    score = 0;
+    nTail = 0;  // Chiều dài ban đầu của đuôi rắn
+
+    // Vòng lặp trò chơi
+    while (!gameOver) {
+        createFrame(); // Vẽ khung trò chơi
+        Input();      // Xử lý nhập liệu
+        Logic();      // Cập nhật logic trò chơi
+        Sleep(100);   // Điều chỉnh tốc độ trò chơi
 
 void Score(int& thoat, char name[], int& lever, int score) {
     // PHẠM PHƯƠNG HỒNG NGỮ Hiển thị thông tin điểm số
@@ -196,25 +217,6 @@ void Score(int& thoat, char name[], int& lever, int score) {
 
     system("cls"); // Xóa màn hình
 }
-
-void playgame(int& thoat, char name[], int& lever) { // NGUYỄN HOÀNG THANH TÚ
-    menuGame();
-    // Khởi tạo các biến trò chơi
-    gameOver = false;
-    dir = STOP;
-    x = WIDTH / 2;      // Vị trí đầu con rắn ban đầu
-    y = HEIGHT / 2;
-    fruitX = rand() % WIDTH;   // Vị trí ngẫu nhiên của thức ăn
-    fruitY = rand() % HEIGHT;
-    score = 0;
-    nTail = 0;          // Chiều dài ban đầu của đuôi con rắn
-
-    // Vòng lặp trò chơi
-    while (!gameOver) {
-        createFrame();  // Vẽ khung trò chơi
-        Input();        // Xử lý nhập liệu từ người chơi
-        Logic();        // Cập nhật logic trò chơi
-        Sleep(100);     // Điều chỉnh tốc độ trò chơi (độ trễ tính bằng mili giây)
     }
 
     // Hiển thị điểm cuối cùng sau khi trò chơi kết thúc
