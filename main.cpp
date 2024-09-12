@@ -70,39 +70,49 @@ void CheckFruit() {
     }
 }
 
-void Logic() { 
-    int prevX = tailX[0], prevY = tailY[0], prev2X, prev2Y;
-    tailX[0] = x; 
+void Logic() { // NGUYỄN ĐĂNG SANG
+    int prevX = tailX[0];
+    int prevY = tailY[0];
+    int prev2X, prev2Y;
+    tailX[0] = x; // Lưu vị trí đầu con rắn
     tailY[0] = y;
 
-    // Cập nhật vị trí đuôi rắn
+    // Cập nhật vị trí đuôi con rắn
     for (int i = 1; i < nTail; i++) {
-        prev2X = tailX[i]; 
+        prev2X = tailX[i];
         prev2Y = tailY[i];
-        tailX[i] = prevX; 
+        tailX[i] = prevX;
         tailY[i] = prevY;
-        prevX = prev2X; 
+        prevX = prev2X;
         prevY = prev2Y;
     }
 
-    // Cập nhật vị trí đầu rắn dựa trên hướng di chuyển
+    // Cập nhật vị trí đầu con rắn dựa trên hướng di chuyển
     switch (dir) {
-        case LEFT: x--; break;
-        case RIGHT: x++; break;
-        case UP: y--; break;
-        case DOWN: y++; break;
+    case LEFT:
+        x--;
+        break;
+    case RIGHT:
+        x++;
+        break;
+    case UP:
+        y--;
+        break;
+    case DOWN:
+        y++;
+        break;
+    default:
+        break;
     }
 
     // Xử lý khi chạm biên màn hình
     if (x >= WIDTH) x = 0; else if (x < 0) x = WIDTH - 1;
     if (y >= HEIGHT) y = 0; else if (y < 0) y = HEIGHT - 1;
 
-    // Kiểm tra va chạm với đuôi rắn
+    // Kiểm tra va chạm với đuôi
     for (int i = 0; i < nTail; i++) {
-        if (tailX[i] == x && tailY[i] == y) {
+        if (tailX[i] == x && tailY[i] == y)
             gameOver = true;
-            break;  // Thoát vòng lặp nếu phát hiện va chạm
-        }
     }
 
     CheckFruit(); // Kiểm tra xem có ăn thức ăn không
@@ -141,66 +151,44 @@ void createFrame() {
     cout << "Diem: " << score << endl;
 }
 
-
 void menuGame() { // NGUYỄN HOÀNG THANH TÚ
     cout << "Chon mot tuy chon:\n";
     cout << "1. Choi!\n";
     cout << "2. Thoat.\n";
     int choice;
     cin >> choice;
-
     switch (choice) {
-        case 1:
-            // Bắt đầu trò chơi
-            break;
-        case 2:
-            gameOver = true; // Thoát trò chơi
-            break;
-        default:
-            cout << "Lựa chọn không hợp lệ.\n";
+    case 1:
+        // Bắt đầu trò chơi
+        break;
+    case 2:
+        gameOver = true; // Thoát trò chơi
+        break;
+    default:
+        cout << "Lua chon khong hop le.\n";
+        break;
     }
 }
 
-
-void playgame(int& thoat, char name[], int& lever) { 
-    menuGame(); // Hiển thị menu trò chơi
-
-    // Khởi tạo biến trò chơi
-    gameOver = false;
-    dir = STOP;
-    x = WIDTH / 2;  // Vị trí đầu rắn ban đầu
-    y = HEIGHT / 2;
-    fruitX = rand() % WIDTH; // Vị trí ngẫu nhiên của thức ăn
-    fruitY = rand() % HEIGHT;
-    score = 0;
-    nTail = 0;  // Chiều dài ban đầu của đuôi rắn
-
-    // Vòng lặp trò chơi
-    while (!gameOver) {
-        createFrame(); // Vẽ khung trò chơi
-        Input();      // Xử lý nhập liệu
-        Logic();      // Cập nhật logic trò chơi
-        Sleep(100);   // Điều chỉnh tốc độ trò chơi
-}
-  
-void Score(int& thoat, char name[], int& lever, int score) { // Phạm Phương Hồng Ngữ
+void Score(int& thoat, char name[], int& lever, int score) {
+    // PHẠM PHƯƠNG HỒNG NGỮ Hiển thị thông tin điểm số
     system("cls"); // Xóa màn hình
-    
-    // Hiển thị thông tin điểm số
     cout << "==================== BANG DIEM ====================" << endl;
-    cout << "Tên người chơi: " << name << endl;
-    cout << "Cấp độ: " << lever << endl;
-    cout << "Điểm cuối cùng: " << score << endl;
+    cout << "Ten nguoi choi: " << name << endl;
+    cout << "Cap do: " << lever << endl;
+    cout << "Diem cuoi cung: " << score << endl;
     cout << "===================================================" << endl;
 
-    // Hiển thị tùy chọn thoát hoặc chơi lại
-    cout << "\nNhấn 'e' để Thoát hoặc 'r' để Chơi lại: ";
-    char a = _getch(); // Lấy ký tự nhập từ bàn phím
-    
+    // Hiển thị tùy chọn thoát
+    cout << "\nNhan 'e' de Thoat hoac 'r' de Choi lai: ";
+
+    char a;
+    a = _getch(); // Lấy ký tự nhập từ bàn phím
+
     if (a == 'e' || a == 'E') {
         thoat = 1; // Đặt cờ thoát
         gameOver = true; // Kết thúc trò chơi
-    } 
+    }
     else if (a == 'r' || a == 'R') {
         thoat = 0; // Đặt lại cờ thoát
         playgame(thoat, name, lever); // Chơi lại trò chơi
@@ -208,6 +196,25 @@ void Score(int& thoat, char name[], int& lever, int score) { // Phạm Phương 
 
     system("cls"); // Xóa màn hình
 }
+
+void playgame(int& thoat, char name[], int& lever) { // NGUYỄN HOÀNG THANH TÚ
+    menuGame();
+    // Khởi tạo các biến trò chơi
+    gameOver = false;
+    dir = STOP;
+    x = WIDTH / 2;      // Vị trí đầu con rắn ban đầu
+    y = HEIGHT / 2;
+    fruitX = rand() % WIDTH;   // Vị trí ngẫu nhiên của thức ăn
+    fruitY = rand() % HEIGHT;
+    score = 0;
+    nTail = 0;          // Chiều dài ban đầu của đuôi con rắn
+
+    // Vòng lặp trò chơi
+    while (!gameOver) {
+        createFrame();  // Vẽ khung trò chơi
+        Input();        // Xử lý nhập liệu từ người chơi
+        Logic();        // Cập nhật logic trò chơi
+        Sleep(100);     // Điều chỉnh tốc độ trò chơi (độ trễ tính bằng mili giây)
     }
 
     // Hiển thị điểm cuối cùng sau khi trò chơi kết thúc
