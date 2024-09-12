@@ -161,6 +161,7 @@ void menuGame() { // NGUYỄN HOÀNG THANH TÚ
     }
 }
 
+
 void playgame(int& thoat, char name[], int& lever) { 
     menuGame(); // Hiển thị menu trò chơi
 
@@ -180,26 +181,26 @@ void playgame(int& thoat, char name[], int& lever) {
         Input();      // Xử lý nhập liệu
         Logic();      // Cập nhật logic trò chơi
         Sleep(100);   // Điều chỉnh tốc độ trò chơi
-
-void Score(int& thoat, char name[], int& lever, int score) {
-    // PHẠM PHƯƠNG HỒNG NGỮ Hiển thị thông tin điểm số
+}
+  
+void Score(int& thoat, char name[], int& lever, int score) { // Phạm Phương Hồng Ngữ
     system("cls"); // Xóa màn hình
+    
+    // Hiển thị thông tin điểm số
     cout << "==================== BANG DIEM ====================" << endl;
-    cout << "Ten nguoi choi: " << name << endl;
-    cout << "Cap do: " << lever << endl;
-    cout << "Diem cuoi cung: " << score << endl;
+    cout << "Tên người chơi: " << name << endl;
+    cout << "Cấp độ: " << lever << endl;
+    cout << "Điểm cuối cùng: " << score << endl;
     cout << "===================================================" << endl;
 
-    // Hiển thị tùy chọn thoát
-    cout << "\nNhan 'e' de Thoat hoac 'r' de Choi lai: ";
-
-    char a;
-    a = _getch(); // Lấy ký tự nhập từ bàn phím
-
+    // Hiển thị tùy chọn thoát hoặc chơi lại
+    cout << "\nNhấn 'e' để Thoát hoặc 'r' để Chơi lại: ";
+    char a = _getch(); // Lấy ký tự nhập từ bàn phím
+    
     if (a == 'e' || a == 'E') {
         thoat = 1; // Đặt cờ thoát
         gameOver = true; // Kết thúc trò chơi
-    }
+    } 
     else if (a == 'r' || a == 'R') {
         thoat = 0; // Đặt lại cờ thoát
         playgame(thoat, name, lever); // Chơi lại trò chơi
