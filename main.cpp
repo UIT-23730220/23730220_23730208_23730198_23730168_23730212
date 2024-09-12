@@ -70,49 +70,39 @@ void CheckFruit() {
     }
 }
 
-void Logic() { // NGUYỄN ĐĂNG SANG
-    int prevX = tailX[0];
-    int prevY = tailY[0];
-    int prev2X, prev2Y;
-    tailX[0] = x; // Lưu vị trí đầu con rắn
+void Logic() { 
+    int prevX = tailX[0], prevY = tailY[0], prev2X, prev2Y;
+    tailX[0] = x; 
     tailY[0] = y;
 
-    // Cập nhật vị trí đuôi con rắn
+    // Cập nhật vị trí đuôi rắn
     for (int i = 1; i < nTail; i++) {
-        prev2X = tailX[i];
+        prev2X = tailX[i]; 
         prev2Y = tailY[i];
-        tailX[i] = prevX;
+        tailX[i] = prevX; 
         tailY[i] = prevY;
-        prevX = prev2X;
+        prevX = prev2X; 
         prevY = prev2Y;
     }
 
-    // Cập nhật vị trí đầu con rắn dựa trên hướng di chuyển
+    // Cập nhật vị trí đầu rắn dựa trên hướng di chuyển
     switch (dir) {
-    case LEFT:
-        x--;
-        break;
-    case RIGHT:
-        x++;
-        break;
-    case UP:
-        y--;
-        break;
-    case DOWN:
-        y++;
-        break;
-    default:
-        break;
+        case LEFT: x--; break;
+        case RIGHT: x++; break;
+        case UP: y--; break;
+        case DOWN: y++; break;
     }
 
     // Xử lý khi chạm biên màn hình
     if (x >= WIDTH) x = 0; else if (x < 0) x = WIDTH - 1;
     if (y >= HEIGHT) y = 0; else if (y < 0) y = HEIGHT - 1;
 
-    // Kiểm tra va chạm với đuôi
+    // Kiểm tra va chạm với đuôi rắn
     for (int i = 0; i < nTail; i++) {
-        if (tailX[i] == x && tailY[i] == y)
+        if (tailX[i] == x && tailY[i] == y) {
             gameOver = true;
+            break;  // Thoát vòng lặp nếu phát hiện va chạm
+        }
     }
 
     CheckFruit(); // Kiểm tra xem có ăn thức ăn không
